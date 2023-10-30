@@ -1,5 +1,6 @@
 """Module for interfacing with the OpenAI Chat API"""
 
+from time import sleep
 import openai
 
 
@@ -25,7 +26,7 @@ def construct_message_chat(role: str, content: str) -> dict:
 
 def get_chat_completion(
     messages: dict, model: str = "gpt-3.5-turbo", max_retries: int = 3, **kwargs
-):
+) -> dict:
     """
     Retrieve a completion from OpenAI's Chat API.
 
@@ -33,13 +34,10 @@ def get_chat_completion(
     - messages (dict): The messages sent to the API.
     - model (str, optional): The model to be used for the API call. Defaults to "gpt-3.5-turbo".
     - max_retries (int, optional): Maximum number of retries in case of API failures. Defaults to 3.
-    - **kwargs: Additional keyword arguments to be passed to the openai.ChatCompletion.create method.
+    - **kwargs: Additional keyword arguments passed to the openai.ChatCompletion.create method.
 
     Returns:
-    - dict: The API response if successful.
-
-    Raises:
-    - Exception: If the API call fails after the specified max_retries.
+    - dict: The API response if successful. 'None' otherwise.
     """
 
     error_msg = ()
@@ -51,6 +49,6 @@ def get_chat_completion(
             return completion
         except Exception as e:
             error_msg = str(e)
-    raise Exception(
-        f"Failed after {max_retries} retries. Last error message:\n{error_msg}"
-    )
+            sleep(3)
+    print(f"Failed after {max_retries} retries. Last error message: {error_msg}")
+    return None
