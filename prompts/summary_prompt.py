@@ -17,13 +17,13 @@ def build_summary_prompt(
 ) -> str:
     """Builds basic summary prompt from template and input.
 
-    Parameters:
-    - text: text sample to summarize.
-    - max_words: maximum number of summary words, by default 150.
-    - template: prompt template to use, must contain placeholders for all variables,
-                by default `SUMMARY_PROMPT_TEMPLATE`.
+    Args:
+    - text (str): text sample to summarize.
+    - max_words (str): Maximum number of summary words, by default 150.
+    - template (str): Prompt template to use, must contain placeholders for all variables,
+                      by default `SUMMARY_PROMPT_TEMPLATE`.
 
     Returns:
-    - prepared prompt.
+    - str: Prepared prompt.
     """
     return template.format(text=text, max_words=max_words)
