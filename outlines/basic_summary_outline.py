@@ -9,8 +9,8 @@ Template guidelines:
 BASIC_SUMMARY_OUTLINE = """
 # [Short Title]
 
-## Executive summary
-(An exactly one-sentence summary of the main objective or purpose.)
+## Summary
+(1-2 sentences long summary of the main topic and objective.)
 
 ## Key points 
 (bulleted list of 3-5 main points.)

@@ -5,14 +5,14 @@ Text:
 {text}
 
 Instructions:
-Transform the provided text into the provided template enclosed by triple back ticks.
+Transform the provided text into the provided outline enclosed by triple back ticks.
 
-Template:
+Outline:
 ```
 {tpl}
 ```
 
-Provide your response in {output_type}. Only return the final, filled template in your response.
+Provide your response in {output_type}. Only return the final, filled outline in your response.
 """
 
 
