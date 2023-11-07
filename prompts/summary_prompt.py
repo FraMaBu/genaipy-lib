@@ -1,4 +1,4 @@
-""" Module for basic summary prompt template and prompt builder function"""
+""" Module for basic summary prompt template and prompt builder function."""
 
 SUMMARY_PROMPT_TEMPLATE = """
 Instructions:
@@ -19,9 +19,9 @@ def build_summary_prompt(
 
     Args:
     - text (str): text sample to summarize.
-    - max_words (str): Maximum number of summary words, by default 150.
-    - template (str): Prompt template to use, must contain placeholders for all variables,
-                      by default `SUMMARY_PROMPT_TEMPLATE`.
+    - max_words (str, optional): Maximum number of summary words, by default 150.
+    - template (str, optional): Prompt template to use, must contain placeholders for all variables,
+        by default `SUMMARY_PROMPT_TEMPLATE`.
 
     Returns:
     - str: Prepared prompt.

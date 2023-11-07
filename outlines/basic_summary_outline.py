@@ -19,7 +19,7 @@ BASIC_SUMMARY_OUTLINE = """
 - [Key insight 3]
 - ... (only if needed)
 
-## Key concepts:
+## Key concepts
 (bulleted list of exactly 3-5 main concepts and entities.)
 - [Key concept/entity 1]
 - [Key concept/entity 2]

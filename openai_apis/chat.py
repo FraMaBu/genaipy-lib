@@ -77,6 +77,7 @@ def get_chat_response(
     Raises:
         TypeError: Raised when `request_chat_completion` returns `None`.
     """
+
     messages = []
     if sys_message:
         messages.append(construct_chat_message("system", sys_message))
