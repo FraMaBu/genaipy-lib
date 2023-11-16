@@ -89,5 +89,5 @@ def get_chat_response(
         logging.info("Token usage: %s", completion["usage"])
         return completion.choices[0].message["content"]
     except TypeError as e:
-        logging.exception("Failed to retrieve completion from OpenAI Chat API: %s", e)
+        logging.error("Failed to retrieve completion from OpenAI Chat API: %s", e)
         raise

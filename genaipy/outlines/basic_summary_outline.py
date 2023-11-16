@@ -10,7 +10,7 @@ BASIC_SUMMARY_OUTLINE = """
 # [Short Title]
 
 ## Summary
-(1-2 sentences long summary of the main topic and objective.)
+(Exactly 1 sentence long summary of the main topic and objective.)
 
 ## Key points 
 (bulleted list of 3-5 main points.)
