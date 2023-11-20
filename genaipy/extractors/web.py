@@ -6,16 +6,16 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def extract_text(url: str, tags: list) -> str:
+def extract_tag_contents(url: str, tags: list) -> str:
     """
-    Extracts and processes text from a webpage for given HTML tags.
+    Extracts and processes content from a webpage for given HTML tags.
 
     Args:
-        url (str): The URL of the webpage to extract text from.
-        tags (list): A list of HTML tags as strings to extract text from.
+        url (str): The URL of the webpage to extract content from.
+        tags (list): A list of HTML tags as strings to extract content from.
 
     Returns:
-        str: A string containing the processed text extracted from the specified tags.
+        str: A string containing the processed content extracted from the specified tags.
 
     Raises:
         requests.exceptions.RequestException: If there is an issue with the web request.

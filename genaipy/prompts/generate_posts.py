@@ -25,7 +25,7 @@ def build_post_prompt(
 
     Args:
         text (str): Text sample to generate post.
-        max_words (str, optional): Maximum number of post words. Defaults to 100.
+        max_words (int, optional): Maximum number of post words. Defaults to 100.
         template (str, optional): Prompt template to use, must contain placeholders for
             all variables. Defaults to `GENERATE_POST_TPL`.
 
