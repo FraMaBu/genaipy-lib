@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def extract_tag_contents(url: str, tags: list) -> str:
+def extract_tags_contents(url: str, tags: list) -> str:
     """
     Extracts and processes content from a webpage for given HTML tags.
 
