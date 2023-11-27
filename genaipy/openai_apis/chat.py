@@ -1,11 +1,21 @@
 """Module for interfacing with the OpenAI Chat API"""
 
 import logging
-from time import sleep
+import time
 from typing import Optional, Any
 import openai
 
 
+# Custom Exceptions for Chat API
+class ChatAPIRequestException(Exception):
+    """Exception raised for errors in the OpenAI Chat API request process."""
+
+
+class ChatAPIResponseException(Exception):
+    """Exception raised for errors in processing the OpenAI Chat API response."""
+
+
+# Functions for interfacing with Chat API
 def construct_chat_message(role: str, content: str) -> dict:
     """
     Constructs a message for OpenAI API.
@@ -21,8 +31,9 @@ def construct_chat_message(role: str, content: str) -> dict:
     - ValueError: If the provided role is not one of "system", "user", or "assistant".
     """
 
-    if role not in ("system", "user", "assistant"):
-        raise ValueError("Invalid role, must be 'system', 'user' or 'assistant'.")
+    valid_roles = {"system", "user", "assistant"}
+    if role not in valid_roles:
+        raise ValueError("Invalid role, must be one of {valid_roles}.")
     return {"role": role, "content": content}
 
 
@@ -39,11 +50,16 @@ def request_chat_completion(
     - **kwargs: Additional keyword arguments passed to the openai.ChatCompletion.create method.
 
     Returns:
-    - Optional[dict]: The API response if successful, 'None' otherwise.
+    - dict: The API response.
+
+    Raises:
+    - ChatAPIRequestException: For errors during the API request process.
     """
 
     last_error_msg = ""
-    for _ in range(max_retries):
+    retry_delay = 1  # Initial delay for exponential backoff
+
+    for attempt in range(max_retries):
         try:
             completion = openai.ChatCompletion.create(
                 model=model, messages=messages, **kwargs
@@ -51,19 +67,20 @@ def request_chat_completion(
             return completion
         except Exception as e:
             last_error_msg = str(e)
-            sleep(3)
+            logging.error("Attempt %d failed: %s", attempt + 1, last_error_msg)
+            time.sleep(retry_delay)
+            retry_delay *= 2  # Exponential backoff
 
-    logging.error(
-        "Failed after %s retries. Last error message: %s", max_retries, last_error_msg
+    raise ChatAPIRequestException(
+        f"Failed after {max_retries} retries. Last error message: {last_error_msg}"
     )
-    return None
 
 
 def get_chat_response(
     prompt: str, sys_message: str = "", model: str = "gpt-3.5-turbo", **kwargs: Any
 ) -> str:
     """
-    Generates a chatbot response using OpenAI's Chat API.
+    Generates a chat response using OpenAI's Chat API.
 
     Args:
         prompt (str): The message from the user.
@@ -72,10 +89,10 @@ def get_chat_response(
         **kwargs: Additional keyword arguments to pass to the `request_chat_completion` function.
 
     Returns:
-        Optional[str]: The content of the LLM's response or None if an error occurs.
+        str: The content of the LLM's response.
 
     Raises:
-        TypeError: Raised when `request_chat_completion` returns `None`.
+        ChatAPIResponseException: For errors during the response processing.
     """
 
     messages = []
@@ -83,11 +100,19 @@ def get_chat_response(
         messages.append(construct_chat_message("system", sys_message))
 
     messages.append(construct_chat_message("user", prompt))
-    completion = request_chat_completion(messages, model=model, **kwargs)
 
     try:
-        logging.info("Token usage: %s", completion["usage"])
+        completion = request_chat_completion(messages, model=model, **kwargs)
+
+        # Validate response content
+        if not completion.choices or "content" not in completion.choices[0].message:
+            raise ChatAPIResponseException("Invalid response format from Chat API.")
+
+        logging.info(
+            "Successfully completed Chat API request. Total token usage: %s",
+            completion["usage"]["total_tokens"],
+        )
         return completion.choices[0].message["content"]
-    except TypeError as e:
+    except ChatAPIRequestException as e:
         logging.error("Failed to retrieve completion from OpenAI Chat API: %s", e)
-        raise
+        raise ChatAPIResponseException("Error in processing Chat API request.") from e

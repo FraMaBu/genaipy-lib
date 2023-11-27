@@ -1,14 +1,25 @@
 """ Module for summary prompt templates and prompt builder function."""
 
 SUMMARY_PROMPT_TPL = """
-Instructions:
-Your task is to generate a summary of the text sample.
-Summarize the text sample provided below, delimited by triple backticks, in at most {max_words} words.
-
 Text sample:
 ```{text}```
 
+Instructions:
+Your task is to generate a summary of the text sample.
+Summarize the provided text sample, delimited by triple backticks, in at most {max_words} words.
+
 Summarized text:
+"""
+
+REDUCE_SUMMARY_PROMPT_TPL = """
+Text samples:
+```{text}```
+
+Instructions:
+Your task is to distill the provided set of text samples, delimited by triple back ticks, into a final, consolidated summary in at most {max_words} words.
+Make sure that the final summary is coherent and clearly structured by using headings, paragraphs, and bulleted lists.
+
+Final summary:
 """
 
 

@@ -1,4 +1,4 @@
-"""Module for extracting content from the web"""
+"""Module for extracting content from the web."""
 
 import logging
 import re
