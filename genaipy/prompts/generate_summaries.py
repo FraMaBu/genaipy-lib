@@ -1,4 +1,9 @@
-""" Module for summary prompt templates and prompt builder function."""
+""" Module for summary prompt templates and system messages."""
+
+DEFAULT_SYS_MESSAGE = """
+You are an assistant specializing in summarizing documents. You excel at summarizing complex documents
+in plain language so non-expert users do not need to search outside to understand the answer.
+"""
 
 SUMMARY_PROMPT_TPL = """
 Text sample:
@@ -21,20 +26,3 @@ Make sure that the final summary is coherent and clearly structured by using hea
 
 Final summary:
 """
-
-
-def build_summary_prompt(
-    text: str, max_words: int = 150, template: str = SUMMARY_PROMPT_TPL
-) -> str:
-    """Builds summary prompt from template and input.
-
-    Args:
-        text (str): text sample to summarize.
-        max_words (int, optional): Maximum number of summary words, by default 150.
-        template (str, optional): Prompt template to use, must contain placeholders for
-            all variables. Defaults to `SUMMARY_PROMPT_TEMPLATE`.
-
-    Returns:
-        str: Prepared prompt.
-    """
-    return template.format(text=text, max_words=max_words)

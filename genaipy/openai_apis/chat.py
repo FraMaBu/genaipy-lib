@@ -61,7 +61,7 @@ def request_chat_completion(
 
     for attempt in range(max_retries):
         try:
-            completion = openai.ChatCompletion.create(
+            completion = openai.chat.completions.create(
                 model=model, messages=messages, **kwargs
             )
             return completion
@@ -104,15 +104,11 @@ def get_chat_response(
     try:
         completion = request_chat_completion(messages, model=model, **kwargs)
 
-        # Validate response content
-        if not completion.choices or "content" not in completion.choices[0].message:
-            raise ChatAPIResponseException("Invalid response format from Chat API.")
-
         logging.info(
-            "Successfully completed Chat API request. Total token usage: %s",
-            completion["usage"]["total_tokens"],
+            "Successfully completed Chat API request. Total token usage: %d",
+            completion.usage.total_tokens,
         )
-        return completion.choices[0].message["content"]
+        return completion.choices[0].message.content
     except ChatAPIRequestException as e:
         logging.error("Failed to retrieve completion from OpenAI Chat API: %s", e)
         raise ChatAPIResponseException("Error in processing Chat API request.") from e

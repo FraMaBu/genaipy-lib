@@ -1,3 +1,5 @@
 __pycache__
-notebooks
+*.egg-info
+genaipy/notebooks
 demos/data
+scripts/data

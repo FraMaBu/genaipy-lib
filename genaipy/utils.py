@@ -1,6 +1,7 @@
-"""Module for helper functions"""
+"""Module for helper functions."""
 
 import logging
+import os
 
 
 def save_string_txt(string: str, output_path: str) -> bool:
@@ -24,8 +25,38 @@ def save_string_txt(string: str, output_path: str) -> bool:
     try:
         with open(output_path, "w", encoding="utf-8") as file:
             file.write(string)
-        logging.info("File successfully saved at %s", output_path)
         return True
     except Exception as e:
         logging.error("Error occurred while saving file at %s: %s", output_path, e)
         raise
+
+
+def validate_api_key(env_var_name: str = "OPENAI_API_KEY") -> str:
+    """
+    Validates if the specified environment variable for the API key is set and permissible.
+
+    Args:
+        env_var_name (str): Name of the environment variable to check.
+            Defaults to 'OPENAI_API_KEY'.
+
+    Returns:
+        str: The value of the specified API key.
+
+    Raises:
+        ValueError: If the environment variable name is not permissible or the key is not set.
+    """
+    permissible_env_vars = {"OPENAI_API_KEY"}
+
+    if env_var_name not in permissible_env_vars:
+        logging.error("Invalid environment variable name: %s", env_var_name)
+        raise ValueError(
+            f"Environment variable '{env_var_name}' is not a permissible key name."
+        )
+
+    api_key = os.environ.get(env_var_name)
+
+    if not api_key:
+        logging.error("Environment variable not set: '%s'.", env_var_name)
+        raise ValueError(f"Environment variable '{env_var_name}' is not set.")
+
+    return api_key
