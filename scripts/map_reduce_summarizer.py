@@ -1,7 +1,6 @@
 """Script for generating summaries from PDFs with map-reduce technique."""
 
 import os
-
 import logging
 from tqdm import tqdm
 
@@ -27,7 +26,6 @@ OPENAI_API_KEY = validate_api_key(env_var_name="OPENAI_API_KEY")
 
 
 # PARAMETERS
-
 BASE_FOLDER = "scripts/data/input"
 OUTPUT_PATH = "scripts/data/output/map_reduce_output.txt"
 

@@ -7,5 +7,7 @@ Function:
 
 Instructions:
 Write a {style}-style docstring including type annotations for the provided function.
-Only return the final function in your response. 
+Only return the final function in your response.
+
+Final function:
 """

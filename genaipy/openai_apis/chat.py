@@ -2,7 +2,7 @@
 
 import logging
 import time
-from typing import Optional, Any
+from typing import Any
 import openai
 
 
@@ -39,7 +39,7 @@ def construct_chat_message(role: str, content: str) -> dict:
 
 def request_chat_completion(
     messages: dict, model: str = "gpt-3.5-turbo", max_retries: int = 3, **kwargs: Any
-) -> Optional[dict]:
+) -> dict:
     """
     Requests a completion from OpenAI's Chat API.
 

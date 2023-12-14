@@ -45,7 +45,7 @@ def validate_api_key(env_var_name: str = "OPENAI_API_KEY") -> str:
     Raises:
         ValueError: If the environment variable name is not permissible or the key is not set.
     """
-    permissible_env_vars = {"OPENAI_API_KEY"}
+    permissible_env_vars = {"OPENAI_API_KEY"}  # TODO: Extend set if relevant
 
     if env_var_name not in permissible_env_vars:
         logging.error("Invalid environment variable name: %s", env_var_name)

@@ -1,4 +1,4 @@
-"""Module for functions building prompts from templates"""
+"""Module for functions building prompts from templates."""
 
 import logging
 
