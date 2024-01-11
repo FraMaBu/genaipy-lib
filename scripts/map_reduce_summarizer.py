@@ -12,7 +12,7 @@ from genaipy.prompts.generate_summaries import (
     SUMMARY_PROMPT_TPL,
     REDUCE_SUMMARY_PROMPT_TPL,
 )
-from genaipy.utils import save_string_txt, validate_api_key
+from genaipy.helpers.utils import save_string_txt, validate_api_key
 
 
 # LOGGER CONFIG
