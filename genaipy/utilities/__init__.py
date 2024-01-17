@@ -1,3 +1,5 @@
+"""Module with helper functions assisting in library functionality."""
+
 # Importing submodules for easy access
 from .file_operations import write_string_to_txt, write_data_to_jsonl
 from .api_auth import validate_api_key
