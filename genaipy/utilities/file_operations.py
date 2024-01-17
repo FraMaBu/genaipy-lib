@@ -1,4 +1,3 @@
-# file_operations.py
 """Submodule for file operations."""
 
 import json
