@@ -1,4 +1,3 @@
-# api_interaction.py
 """Submodule for API authentification."""
 
 import os
