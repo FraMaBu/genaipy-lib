@@ -12,7 +12,7 @@ from genaipy.prompts.generate_summaries import (
     SUMMARY_PROMPT_TPL,
     REDUCE_SUMMARY_PROMPT_TPL,
 )
-from genaipy.utils import save_string_txt, validate_api_key
+from genaipy.utilities import write_string_to_txt, validate_api_key
 
 
 # LOGGER CONFIG
@@ -26,8 +26,8 @@ OPENAI_API_KEY = validate_api_key(env_var_name="OPENAI_API_KEY")
 
 
 # PARAMETERS
-BASE_FOLDER = "scripts/data/input"
-OUTPUT_PATH = "scripts/data/output/map_reduce_output.txt"
+BASE_FOLDER = "data/input"
+OUTPUT_PATH = "data/output/map_reduce_output.txt"
 
 MAP_LLM = "gpt-3.5-turbo"
 REDUCE_LLM = "gpt-4-1106-preview"
@@ -108,7 +108,7 @@ def generate_reduce_summary(map_summaries):
 
 def save_summary(summary, output_path):
     """Saves the summary to a text file."""
-    success = save_string_txt(string=summary.strip(), output_path=output_path)
+    success = write_string_to_txt(text=summary.strip(), file_path=output_path)
     if success:
         logging.info("Summary successfully saved to %s", output_path)
     else:
