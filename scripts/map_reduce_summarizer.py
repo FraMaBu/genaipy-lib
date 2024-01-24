@@ -26,8 +26,8 @@ OPENAI_API_KEY = validate_api_key(env_var_name="OPENAI_API_KEY")
 
 
 # PARAMETERS
-BASE_FOLDER = "data/input"
-OUTPUT_PATH = "data/output/map_reduce_output.txt"
+BASE_FOLDER = "../data/input"
+OUTPUT_PATH = "../data/output/map_reduce_output.txt"
 
 MAP_LLM = "gpt-3.5-turbo"
 REDUCE_LLM = "gpt-4-1106-preview"
